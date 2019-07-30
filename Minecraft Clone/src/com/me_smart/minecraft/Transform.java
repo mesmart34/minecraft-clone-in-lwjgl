@@ -1,8 +1,10 @@
 package com.me_smart.minecraft;
 
+import java.io.Serializable;
+
 import org.joml.Vector3f;
 
-public class Transform {
+public class Transform implements Serializable {
 
 	private Vector3f position;
 	private Vector3f scale;

@@ -29,7 +29,7 @@ public class Game implements AbstractGame {
 		{
 			engine.setRunning(false);
 		}
-		engine.getRenderer().getCamera().update(deltaTime);
+		
 	}
 
 	@Override

@@ -51,6 +51,7 @@ public class Engine implements Runnable {
 		    steps -= secsPerUpdate;
 		  }
 		  renderer.clear();
+		  renderer.getCamera().update((float)elapsed);
 		  game.onRender(this, renderer);
 		  Window.SwapBuffers();
 		  sync(loopStartTime);
