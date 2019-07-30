@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/joml-1.9.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/joml-1.9.16-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/joml-1.9.16-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-glfw.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-glfw-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-glfw-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-glfw-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-openal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-openal-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-openal-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-openal-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-opengl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-opengl-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-opengl-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-opengl-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-stb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-stb-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-stb-natives-windows.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hax0r1/Documents/LWJGL/lwjgl-stb-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
