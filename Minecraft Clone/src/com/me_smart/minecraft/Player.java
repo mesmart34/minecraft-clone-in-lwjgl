@@ -10,6 +10,7 @@ import java.io.Serializable;
 
 public class Player implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Transform transform;
 	private String name;
 	private int score;
@@ -33,6 +34,9 @@ public class Player implements Serializable {
 				} catch (ClassNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}finally {
+					os.close();
+					fs.close();
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -43,7 +47,7 @@ public class Player implements Serializable {
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	public static void saveToFile(Player player, String fileName)
@@ -53,6 +57,8 @@ public class Player implements Serializable {
 			try {
 				ObjectOutputStream os = new ObjectOutputStream(fs);
 				os.writeObject(player);
+				os.close();
+				fs.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

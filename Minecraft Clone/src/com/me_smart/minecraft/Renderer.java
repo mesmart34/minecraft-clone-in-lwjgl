@@ -1,11 +1,7 @@
 package com.me_smart.minecraft;
 
-import java.nio.IntBuffer;
-
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 import org.joml.Vector3i;
-import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL30;
 
 public class Renderer {
@@ -54,6 +50,7 @@ public class Renderer {
 	
 	public void drawChunk(Chunk chunk)
 	{
+		GL30.glDisable(GL30.GL_CULL_FACE);
 		defaultShader.start();
 		Vector3i v = new Vector3i(chunk.getPosition());
 		v.x *= Chunk.SIZE - 1;
@@ -65,6 +62,7 @@ public class Renderer {
 		drawMesh(chunk.getMesh());
 		texture.unbind();
 		defaultShader.stop();
+		GL30.glEnable(GL30.GL_CULL_FACE);
 	}
 	
 	public void drawMesh(Mesh mesh)
@@ -81,7 +79,7 @@ public class Renderer {
 	public void clear()
 	{
 		GL30.glEnable(GL30.GL_DEPTH_TEST);
-		//GL30.glEnable(GL30.GL_CULL_FACE);
+		GL30.glEnable(GL30.GL_CULL_FACE);
 		GL30.glClear(GL30.GL_COLOR_BUFFER_BIT | GL30.GL_DEPTH_BUFFER_BIT);
 	}
 	

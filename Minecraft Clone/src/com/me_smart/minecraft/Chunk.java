@@ -10,6 +10,7 @@ import org.joml.Vector3i;
 
 public class Chunk implements Runnable {
 
+	public static HashMap<Vector3i, Chunk> world = new HashMap<Vector3i, Chunk>();
 	public final static int SIZE = 16;
 	public final static int HEIGHT = 32;
 	private Block[][][] blocks = new Block[SIZE][HEIGHT][SIZE];
@@ -17,15 +18,13 @@ public class Chunk implements Runnable {
 	private boolean isReadyToDraw = false;
 	private Mesh mesh;
 	private Thread chunkBuilder;
-	private HashMap<Vector3i, Chunk> world;
 	
-	public Chunk(Vector3i position, HashMap<Vector3i, Chunk> world)
+	public Chunk(Vector3i position)
 	{
 		this.position = position;
 		clear();
 		fillRandomly();
 		chunkBuilder = new Thread(this, "Chunk: " + position.x + ", " + position.z);
-		this.world = world;
 		chunkBuilder.start();
 	}
 	
@@ -35,7 +34,6 @@ public class Chunk implements Runnable {
 		{
 			isReadyToDraw = true;
 			getMesh().setup();
-			//Debug.log("generated in thread");
 		}
 	}
 	
@@ -119,16 +117,6 @@ public class Chunk implements Runnable {
 	@Override
 	public void run() {
 		byte[] faces = new byte[Chunk.SIZE * Chunk.SIZE * Chunk.HEIGHT];
-		boolean exists[] = new boolean[4];
-		exists[0] = world.containsKey(getPosition().add(new Vector3i(0, 0, 1)));
-		exists[1] = world.containsKey(getPosition().add(new Vector3i(1, 0, 0)));
-		exists[2] = world.containsKey(getPosition().add(new Vector3i(0, 0, -1)));
-		exists[3] = world.containsKey(getPosition().add(new Vector3i(-1, 0, 0)));
-		Chunk neighbours[] = new Chunk[4];
-		neighbours[0] = world.get(getPosition().add(new Vector3i(0, 0, 1)));
-		neighbours[1] = world.get(getPosition().add(new Vector3i(1, 0, 0)));
-		neighbours[2] = world.get(getPosition().add(new Vector3i(0, 0, -1)));
-		neighbours[3] = world.get(getPosition().add(new Vector3i(-1, 0, 0)));
 		int faceIndex = 0;
 		int sizeEstimate = 0;
 		for(int x = 0; x < Chunk.SIZE; x++)
@@ -137,22 +125,22 @@ public class Chunk implements Runnable {
 			{
 				for(int z = 0; z < Chunk.SIZE; z++)
 				{
-					if(x == 0 && exists[0])
+					if(x == 0)
 					{
 						faces[faceIndex] |= Direction.West;
 						sizeEstimate += 4;
 					}else
-					if(x == Chunk.SIZE - 1 && exists[2])
+					if(x == Chunk.SIZE - 1)
 					{
 						faces[faceIndex] |= Direction.East;
 						sizeEstimate += 4;
 					}
-					if(z == 0 && (!exists[1] || neighbours[3].getBlock(position.x + x, position.y + y, position.z + z - 1) == Block.AIR))
+					if(z == 0)
 					{
 						faces[faceIndex] |= Direction.South;
 						sizeEstimate += 4;
 					}else
-					if(z == Chunk.SIZE - 1 && exists[3])
+					if(z == Chunk.SIZE - 1)
 					{
 						faces[faceIndex] |= Direction.North;
 						sizeEstimate += 4;
@@ -176,7 +164,6 @@ public class Chunk implements Runnable {
 		int vertexIndex = 0;
 		Vector3f vertices[] = new Vector3f[sizeEstimate];
 		Vector2f uvs[] = new Vector2f[sizeEstimate];
-		Vector3f normals[] = new Vector3f[sizeEstimate];
 		int indices[] = new int[(int) (sizeEstimate * 1.5)];
 		for(int x = 0; x < Chunk.SIZE; x++)
 		{
@@ -314,6 +301,7 @@ public class Chunk implements Runnable {
 				}
 			}
 		}
+		Debug.log("sup");
 		mesh = new Mesh();
 		mesh.apply(vertices, uvs, indices, Mesh.FULL_MODEL);
 	}

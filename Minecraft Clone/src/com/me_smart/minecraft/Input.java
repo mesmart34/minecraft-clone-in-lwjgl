@@ -35,22 +35,17 @@ public class Input {
 		});
 		GLFW.glfwSetCursorPos(Window.getNativeWindow(), (double)Window.getWidth() / 2, (double)Window.getHeight() / 2);
 		GLFW.glfwSetInputMode(Window.getNativeWindow(), GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+		
 	}
 	
 	public static void createInput()
 	{
-		if(input == null)
-			input = new Input();
+		input = new Input();
 	}
 	
 	public static void update()
 	{
 		updateMouse();
-	}
-	
-	public static boolean getKeyDown(int keyCode)
-	{
-		return keys[keyCode] && !lastKeys[keyCode];
 	}
 	
 	public static boolean getKey(int keyCode)
@@ -61,6 +56,11 @@ public class Input {
 	public static boolean getKeyUp(int keyCode)
 	{
 		return !keys[keyCode] && lastKeys[keyCode];
+	}
+	
+	public static boolean getKeyDown(int keyCode)
+	{
+		return keys[keyCode] && !lastKeys[keyCode];
 	}
 	
 	private static void updateMouse()
@@ -77,9 +77,19 @@ public class Input {
 	public static float getDeltaMouseX() {
 		return deltaMouseX;
 	}
-
+	
 	public static float getDeltaMouseY() {
 		return deltaMouseY;
+	}
+	
+	public static float getMouseScreenX()
+	{
+		return getDeltaMouseX();	
+	}
+	
+	public static float getMouseScreenY()
+	{
+		return getMouseScreenY();
 	}
 	
 }
