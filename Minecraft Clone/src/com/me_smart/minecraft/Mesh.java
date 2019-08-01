@@ -15,7 +15,7 @@ public class Mesh {
 	private int ebo;
 	private ArrayList<Integer> vbos;
 	private int vertexCount;
-	private float vertices[], uvs[];
+	private float vertices[], uvs[], normals[];
 	private int indices[];
 	private int meshType;
 	public static final int FULL_MODEL = 0;
@@ -35,9 +35,27 @@ public class Mesh {
 		this.indices = indices;
 	}
 	
+	public void apply(float vertices[], float normals[], float uvs[], int indices[], int type)
+	{
+		this.meshType = type;
+		this.vertices = vertices;
+		this.normals = normals;
+		this.uvs = uvs;
+		this.indices = indices;
+	}
+	
 	public void apply(Vector3f vertices[], Vector2f uvs[], int indices[], int type)
 	{
 		this.vertices = Vector3fToArray(vertices);
+		this.uvs = Vector2fToArray(uvs);
+		this.indices = indices;
+		this.meshType = type;
+	}
+	
+	public void apply(Vector3f vertices[], Vector3f normals[], Vector2f uvs[], int indices[], int type)
+	{
+		this.vertices = Vector3fToArray(vertices);
+		this.normals = Vector3fToArray(normals);
 		this.uvs = Vector2fToArray(uvs);
 		this.indices = indices;
 		this.meshType = type;
@@ -57,7 +75,8 @@ public class Mesh {
 			ebo = GL30.glGenBuffers();
 			GL30.glBindVertexArray(vao);
 			storeDataInVBO(0, 3, vertices);
-			storeDataInVBO(1, 2, uvs);
+			storeDataInVBO(1, 3, normals);
+			storeDataInVBO(2, 2, uvs);
 			storeIndices(indices);
 			GL30.glBindVertexArray(0);
 		}else if(meshType == CUBEMAP) {

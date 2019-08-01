@@ -1,5 +1,7 @@
 package com.me_smart.minecraft;
 
+import java.awt.peer.LightweightPeer;
+
 import org.joml.Matrix4f;
 import org.joml.Vector3i;
 import org.lwjgl.opengl.GL30;
@@ -48,16 +50,16 @@ public class Renderer {
 		skybox.getCubemapShader().stop();
 	}
 	
-	public void drawChunk(Chunk chunk)
+	public void drawChunk(Chunk chunk, DirectionalLight light)
 	{
 		GL30.glDisable(GL30.GL_CULL_FACE);
 		defaultShader.start();
-		Vector3i v = new Vector3i(chunk.getPosition());
-		v.x *= Chunk.SIZE - 1;
-		v.z *= Chunk.SIZE - 1;
-		defaultShader.loadMatrix("transform_matrix", Mathf.getTransformMatrix(v));
+		defaultShader.loadMatrix("transform_matrix", Mathf.getTransformMatrix(new Vector3i()));
 		defaultShader.loadMatrix("view_matrix", Mathf.getViewMatrix(camera));
 		defaultShader.loadMatrix("projection_matrix", Mathf.getProjectionMatrix(camera.getFieldOfView(), camera.getNearPlane(), camera.getFarPlane(), Window.getAspectRatio()));
+		defaultShader.loadVector3f("lightPosition", light.getTransform().getPosition());
+		defaultShader.loadVector3f("lightColor", light.getColor());
+		defaultShader.loadFloat("lightIntensity", light.getIntensity());
 		texture.bind();
 		drawMesh(chunk.getMesh());
 		texture.unbind();

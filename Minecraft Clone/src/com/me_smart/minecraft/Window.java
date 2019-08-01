@@ -17,6 +17,7 @@ public class Window {
 		nativeWindow = GLFW.glfwCreateWindow(width, height, title, 0, 0);
 		GLFW.glfwMakeContextCurrent(nativeWindow);
 		GL.createCapabilities();
+		GL30.glEnable(GL30.GL_MULTISAMPLE);
 		resize(width, height);
 		GLFW.glfwSetWindowSizeCallback(nativeWindow, new GLFWWindowSizeCallbackI() {			
 			@Override

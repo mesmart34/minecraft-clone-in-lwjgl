@@ -17,7 +17,7 @@ public class TextureController {
 				b = getCellCoords(1, 1);
 				c = getCellCoords(1, 2);
 				d = getCellCoords(0, 2);
-			}if(direction == Direction.Bottom) {
+			}else if(direction == Direction.Bottom) {
 				a = getCellCoords(1, 0);
 				b = getCellCoords(2, 0);
 				c = getCellCoords(2, 1);
@@ -60,7 +60,7 @@ public class TextureController {
 			d = getCellCoords(5, 1);
 		}
 		
-		return new Vector2f[] { b, a, c, d };
+		return new Vector2f[] { c, d, b, a };
 	}
 	
 	public static Vector2f getCellCoords(int x, int y)

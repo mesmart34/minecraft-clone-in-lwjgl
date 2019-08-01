@@ -41,19 +41,19 @@ public class Shader {
 		GL30.glUniform1ui(location, value);
 	}
 	
-	/*public void loadVector3f(String name, Vector3f value)
+	public void loadVector3f(String name, Vector3f value)
 	{
 		int location = GL30.glGetUniformLocation(programId, name);
 		GL30.glUniform3f(location, value.x, value.y, value.z);
-	}*/
+	}
 	
-	public void loadVector3f(String name, Vector3f value)
+	/*public void loadVector3f(String name, Vector3f value)
 	{
 		int location = GL30.glGetUniformLocation(programId, name);
 		FloatBuffer buffer = BufferUtils.createFloatBuffer(3);
 		value.set(buffer);
 		GL30.glUniform3fv(location, buffer);
-	}
+	}*/
 	
 	public void loadFloat(String name, float value)
 	{

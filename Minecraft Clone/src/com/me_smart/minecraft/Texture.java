@@ -4,6 +4,8 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.stb.STBImage;
 
@@ -51,12 +53,19 @@ public class Texture {
 			IntBuffer c = BufferUtils.createIntBuffer(1);	
 			ByteBuffer image = STBImage.stbi_load(path, w, h, c, 4);
 			GL30.glBindTexture(GL30.GL_TEXTURE_2D, textureId);	
+			GL30.glTexImage2D(GL30.GL_TEXTURE_2D, 0, GL30.GL_RGBA, w.get(), h.get(), 0, GL30.GL_RGBA, GL30.GL_UNSIGNED_BYTE, image);
+			GL30.glTexParameterf(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MIN_FILTER, GL30.GL_LINEAR_MIPMAP_LINEAR);
+			GL30.glTexParameterf(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_LOD_BIAS, 0);
+			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MAG_FILTER, GL30.GL_LINEAR);
+			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MIN_FILTER, GL30.GL_LINEAR);
 			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_WRAP_S, GL30.GL_CLAMP_TO_EDGE);
 			GL30.glTexParameteri(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_WRAP_T, GL30.GL_CLAMP);
-			GL30.glTexParameterf(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MIN_FILTER, GL30.GL_NEAREST_MIPMAP_LINEAR);
-			GL30.glTexParameterf(GL30.GL_TEXTURE_2D, GL30.GL_TEXTURE_MAG_FILTER, GL30.GL_NEAREST);
-			GL30.glTexImage2D(GL30.GL_TEXTURE_2D, 0, GL30.GL_RGBA, w.get(), h.get(), 0, GL30.GL_RGBA, GL30.GL_UNSIGNED_BYTE, image);
 			GL30.glGenerateMipmap(GL30.GL_TEXTURE_2D);
+			if(GL.getCapabilities().GL_EXT_texture_filter_anisotropic)
+			{
+				float amount = Math.min(4f, GL30.glGetFloat(EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+				GL30.glTexParameterf(GL30.GL_TEXTURE_2D, EXTTextureFilterAnisotropic.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, amount);
+			}
 			break;
 		case CUBEMAP:
 			GL30.glBindTexture(GL30.GL_TEXTURE_2D, textureId);

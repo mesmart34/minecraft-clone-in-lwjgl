@@ -8,6 +8,7 @@ uniform mat4 projection_matrix;
 uniform mat4 view_matrix;
 uniform vec3 camera_position;
 
+
 void main()
 {
 	vec4 final_position = projection_matrix * view_matrix * vec4(position + camera_position, 1.0f);
